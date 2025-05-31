@@ -3,5 +3,6 @@
 *.xbstrap
 # editor configs:
 .vscode
+.zed
 compile_commands.json
 /linux-headers
