@@ -1,4 +1,6 @@
+#include "midnatt/syscall.h"
 #include <bits/ensure.h>
+#include <stdint.h>
 #include <errno.h>
 #include <mlibc/all-sysdeps.hpp>
 #include <mlibc/debug.hpp>
@@ -9,24 +11,22 @@
 namespace mlibc {
 
 void sys_libc_log([[maybe_unused]] const char *message) {
-    mlibc::infoLogger() << "unimplemented sys_tcb_set called" << frg::endlog;
+    syscall2(SYSCALL_DEBUG, (uint64_t) message, strlen(message));
 }
 
 [[noreturn]] void sys_libc_panic() {
-    mlibc::infoLogger() << "unimplemented sys_tcb_set called" << frg::endlog;
-    while (true);
+    syscall2(SYSCALL_EXIT, 0, false);
     __builtin_unreachable();
 }
 
 [[noreturn]] void sys_exit([[maybe_unused]] int status) {
-    mlibc::infoLogger() << "unimplemented sys_tcb_set called" << frg::endlog;
-    while (true);
+    syscall2(SYSCALL_EXIT, status, false);
     __builtin_unreachable();
 }
 
 int sys_tcb_set([[maybe_unused]] void *pointer) {
-    mlibc::infoLogger() << "unimplemented sys_tcb_set called" << frg::endlog;
-    return -1;
+    syscall1(SYSCALL_SET_TCB, (uintptr_t) pointer);
+    return 0;
 }
 
 int sys_futex_wait(int *pointer [[maybe_unused]], int expected [[maybe_unused]], const struct timespec *time [[maybe_unused]]) {

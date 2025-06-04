@@ -6,7 +6,6 @@ sysdep_supported_options = {
 }
 
 rtld_sources += files(
-    'generic/entry.cpp',
     'generic/generic.cpp',
     'generic/memory.cpp',
 )
@@ -72,6 +71,10 @@ if not no_headers
 		'include/abi-bits/time.h',
 		subdir: 'abi-bits',
 		follow_symlinks: true
+	)
+	install_headers(
+	    'include/midnatt/syscall.h',
+		subdir: 'midnatt'
 	)
 endif
 
